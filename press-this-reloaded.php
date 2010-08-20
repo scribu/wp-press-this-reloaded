@@ -38,7 +38,7 @@ class Press_This_Reloaded {
 
 	function shortcut_link($link) {
 		$link = str_replace('press-this.php', 'post-new.php', $link);
-		$link = str_replace('width=720', 'width=800', $link);
+		$link = str_replace('width=720', 'width=810', $link);
 
 		return $link;
 	}
@@ -92,7 +92,7 @@ class Press_This_Reloaded {
 #wphead, #screen-meta, #icon-edit, h2 {display: none !important}
 
 /* hide the menu */
-#wpbody {margin-left:10px !important}
+#wpbody {margin-left:7px !important}
 
 /* hide the footer */
 #footer {display: none !important}
