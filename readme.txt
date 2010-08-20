@@ -1,7 +1,7 @@
 === Press This Reloaded ===
 Contributors: scribu
 Donate link: http://scribu.net/paypal
-Tags: press-this
+Tags: bookmarklet, press-this, pressthis
 Requires at least: 3.0
 Tested up to: 3.1-alpha
 Stable tag: trunk
