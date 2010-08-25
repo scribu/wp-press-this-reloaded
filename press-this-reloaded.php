@@ -5,7 +5,7 @@ Description: Press This, using the regular Add New Post screen
 Author: scribu
 Author URI: http://scribu.net
 Plugin URI: http://scribu.net/wordpress/press-this-reloaded
-Version: 1.0
+Version: 1.0.1
 
 
 Copyright (C) 2010 Cristi Burcă (scribu@gmail.com)
@@ -51,8 +51,10 @@ class Press_This_Reloaded {
 	}
 
 	function redirect($location) {
-		if ( false !== strpos(wp_get_referer(), '?u=' ) )
-			$location = add_query_arg('u', '', $location);
+		$referrer = wp_get_referer();
+
+		if ( false !== strpos($referrer, '?u=' ) || false !== strpos($referrer, '&u=' ) )
+			$location = add_query_arg('u', 1, $location);
 
 		return $location;
 	}
