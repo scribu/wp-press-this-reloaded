@@ -5,7 +5,7 @@ Description: Press This, using the regular Add New Post screen
 Author: scribu
 Author URI: http://scribu.net
 Plugin URI: http://scribu.net/wordpress/press-this-reloaded
-Version: 1.0.1
+Version: 1.0.2
 
 
 Copyright (C) 2010 Cristi Burcă (scribu@gmail.com)
@@ -26,6 +26,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class Press_This_Reloaded {
 
+	private static $title;
+	private static $content;
+
 	function init() {
 		add_filter('shortcut_link', array( __CLASS__, 'shortcut_link'));
 		add_filter('redirect_post_location', array(__CLASS__, 'redirect'));
@@ -43,13 +46,6 @@ class Press_This_Reloaded {
 		return $link;
 	}
 
-	function load() {
-		add_action('admin_print_styles', array( __CLASS__, 'style'));
-
-		add_filter('default_title', array(__CLASS__, 'default_title'));
-		add_filter('default_content', array(__CLASS__, 'default_content'));
-	}
-
 	function redirect($location) {
 		$referrer = wp_get_referer();
 
@@ -59,13 +55,12 @@ class Press_This_Reloaded {
 		return $location;
 	}
 
-	function default_title() {
+	function load() {
 		$title = isset( $_GET['t'] ) ? trim( strip_tags( html_entity_decode( stripslashes( $_GET['t'] ) , ENT_QUOTES) ) ) : '';
 
-		return $title;
-	}
+		$url = isset($_GET['u']) ? esc_url($_GET['u']) : '';
+		$url = wp_kses(urldecode($url), null);
 
-	function default_content() {
 		$selection = '';
 		if ( !empty($_GET['s']) ) {
 			$selection = str_replace('&apos;', "'", stripslashes($_GET['s']));
@@ -73,18 +68,30 @@ class Press_This_Reloaded {
 		}
 
 		if ( !empty($selection) ) {
-			$selection = preg_replace('/(\r?\n|\r)/', '</p><p>', $selection);
-			$selection = '<p>' . str_replace('<p></p>', '', $selection) . '</p>';
+			$selection = '<blockquote>' . str_replace('<p></p>', '', $selection) . '</blockquote>';
 		}
 
-		if ( !empty($selection) )
-			return $selection;
+		self::$content = '';
+		if ( !empty($selection) ) {
+			self::$content = $selection . "\n\n" . __('via ') . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( $url ), esc_html( $title ) );
+		} else {
+			self::$content = $url;
+		}
 
-		$url = isset($_GET['u']) ? esc_url($_GET['u']) : '';
-		$url = wp_kses(urldecode($url), null);
+		self::$title = $title;
 
-		// leave the embeding to the WP_Embed class
-		return $url;
+		add_action('admin_print_styles', array( __CLASS__, 'style'));
+
+		add_filter('default_title', array(__CLASS__, 'default_title'));
+		add_filter('default_content', array(__CLASS__, 'default_content'));
+	}
+
+	function default_title() {
+		return self::$title;
+	}
+
+	function default_content() {
+		return self::$content;
 	}
 
 	function style() {

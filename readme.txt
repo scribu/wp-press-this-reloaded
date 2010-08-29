@@ -40,9 +40,14 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 
 == Changelog ==
 
+= 1.0.2 =
+* add via link when there's a text selection
+* wrap text selection in a &lt;blockquote&gt;
+
 = 1.0.1 =
 * fixed redirection on subsequent saves
 
 = 1.0 =
 * initial release
+* [more info](http://scribu.net/wordpress/press-this-reloaded/ptr-1-0.html)
 
