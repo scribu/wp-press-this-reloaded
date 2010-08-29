@@ -67,13 +67,10 @@ class Press_This_Reloaded {
 			$selection = trim( htmlspecialchars( html_entity_decode($selection, ENT_QUOTES) ) );
 		}
 
-		if ( !empty($selection) ) {
-			$selection = '<blockquote>' . str_replace('<p></p>', '', $selection) . '</blockquote>';
-		}
-
 		self::$content = '';
 		if ( !empty($selection) ) {
-			self::$content = $selection . "\n\n" . __('via ') . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( $url ), esc_html( $title ) );
+			self::$content  = "<blockquote>$selection</blockquote>\n\n";
+			self::$content .= __('via ') . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( $url ), esc_html( $title ) );
 		} else {
 			self::$content = $url;
 		}
