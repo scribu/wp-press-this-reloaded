@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Press This Reloaded
+Version: 1.0.2
 Description: Press This, using the regular Add New Post screen
 Author: scribu
 Author URI: http://scribu.net
 Plugin URI: http://scribu.net/wordpress/press-this-reloaded
-Version: 1.0.2
 
 
 Copyright (C) 2010 Cristi Burcă (scribu@gmail.com)

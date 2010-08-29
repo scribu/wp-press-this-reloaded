@@ -18,6 +18,8 @@ Also, plain URLs are inserted in the post content, letting the [Embeds](http://c
 
 **Important:** After activating the plugin, you will have to re-create the bookmarklet, from WP Admin -> Tools.
 
+Links: [Plugin News](http://scribu.net/wordpress/press-this-reloaded) | [Author's Site](http://scribu.net)
+
 == Installation ==
 
 You can either install it automatically from the WordPress admin, or do it manually:
