@@ -16,7 +16,7 @@ With this plugin, you will have access to all the meta boxes, not just Categorie
 
 Also, plain URLs are inserted in the post content, letting the [Embeds](http://codex.wordpress.org/Embeds) feature do the rest.
 
-**Important:** After activating the plugin, you will have to re-create the bookmarklet, from WP Admin -> Tools.
+**Important:** After activating the plugin, you will have to re-add the bookmarklet, from WP Admin -> Tools.
 
 Links: [Plugin News](http://scribu.net/wordpress/press-this-reloaded) | [Author's Site](http://scribu.net)
 
