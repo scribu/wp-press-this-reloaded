@@ -3,7 +3,7 @@ Contributors: scribu
 Donate link: http://scribu.net/paypal
 Tags: bookmarklet, press-this, pressthis
 Requires at least: 3.0
-Tested up to: 3.1-alpha
+Tested up to: 3.1-RC
 Stable tag: trunk
 
 Press This, using the regular Add New Post screen
@@ -19,13 +19,6 @@ Also, plain URLs are inserted in the post content, letting the [Embeds](http://c
 **Important:** After activating the plugin, you will have to re-add the bookmarklet, from WP Admin -> Tools.
 
 Links: [Plugin News](http://scribu.net/wordpress/press-this-reloaded) | [Author's Site](http://scribu.net)
-
-== Installation ==
-
-You can either install it automatically from the WordPress admin, or do it manually:
-
-1. Unzip the press-this-reloaded archive and put the folder into your plugins folder (/wp-content/plugins/).
-1. Activate the plugin from the Plugins menu.
 
 == Frequently Asked Questions ==
 
