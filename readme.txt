@@ -1,9 +1,8 @@
 === Press This Reloaded ===
 Contributors: scribu
-Donate link: http://scribu.net/paypal
 Tags: bookmarklet, press-this, pressthis
 Requires at least: 3.0
-Tested up to: 3.1-RC
+Tested up to: 3.2
 Stable tag: trunk
 
 Press This, using the regular Add New Post screen
@@ -34,6 +33,9 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 1. The UI
 
 == Changelog ==
+
+= 1.0.3 =
+* hide admin bar in popup window
 
 = 1.0.2 =
 * add via link when there's a text selection
