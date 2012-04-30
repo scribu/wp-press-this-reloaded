@@ -6,8 +6,6 @@ Description: Press This, using the regular Add New Post screen
 Author: scribu
 Author URI: http://scribu.net
 Plugin URI: http://scribu.net/wordpress/press-this-reloaded
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 class Press_This_Reloaded {
