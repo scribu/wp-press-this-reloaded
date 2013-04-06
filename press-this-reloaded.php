@@ -3,7 +3,7 @@
   Plugin Name: Press This Reloaded
   Version: 1.0.3
   Description: Press This, using the regular Add New Post screen
-  Author: scribu
+  Author: scribu,mustela
   Author URI: http://scribu.net
   Plugin URI: http://scribu.net/wordpress/press-this-reloaded
  */
@@ -240,140 +240,140 @@ class Press_This_Reloaded {
 			}
 		}
 
-		function press_this_media_buttons() {
+	function press_this_media_buttons() {
 
 
-			_e( 'Add:' );
+		_e( 'Add:' );
 
-			if ( current_user_can( 'upload_files' ) ) {
-				?>
-				<a id="photo_button" title="<?php esc_attr_e( 'Insert an Image' ); ?>" href="#">
-					<img alt="<?php esc_attr_e( 'Insert an Image' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-image.gif?ver=20100531' ) ); ?>"/></a>
-				<?php
-			}
+		if ( current_user_can( 'upload_files' ) ) {
 			?>
-			<a id="video_button" title="<?php esc_attr_e( 'Embed a Video' ); ?>" href="#"><img alt="<?php esc_attr_e( 'Embed a Video' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-video.gif?ver=20100531' ) ); ?>"/></a>
-
-			<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading...' ); ?></span></div>
-
-			<div id="extra-fields" style='clear:both;'>
-
-			</div>
-
-			<div id="photo-add-url-div" style="display:none;">
-				<table><tr>
-						<td><label for="this_photo"><?php _e( 'URL' ) ?></label></td>
-						<td><input type="text" id="this_photo" name="this_photo" class="tb_this_photo text" onkeypress="if (event.keyCode == 13)
-					image_selector(this);" /></td>
-					</tr><tr>
-						<td><label for="this_photo_description"><?php _e( 'Description' ) ?></label></td>
-						<td><input type="text" id="this_photo_description" name="photo_description" class="tb_this_photo_description text" onkeypress="if (event.keyCode == 13)
-					image_selector(this);" value="<?php echo esc_attr( $title ); ?>"/></td>
-					</tr><tr>
-						<td><input type="button" class="button" onclick="image_selector(this)" value="<?php esc_attr_e( 'Insert Image' ); ?>" /></td>
-					</tr></table>
-			</div>
+			<a id="photo_button" title="<?php esc_attr_e( 'Insert an Image' ); ?>" href="#">
+				<img alt="<?php esc_attr_e( 'Insert an Image' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-image.gif?ver=20100531' ) ); ?>"/></a>
 			<?php
 		}
+		?>
+		<a id="video_button" title="<?php esc_attr_e( 'Embed a Video' ); ?>" href="#"><img alt="<?php esc_attr_e( 'Embed a Video' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-video.gif?ver=20100531' ) ); ?>"/></a>
 
-		function add_scripts() {
+		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading...' ); ?></span></div>
 
-			wp_enqueue_script( 'press-this-reloaded', plugin_dir_url( __FILE__ ) . '/press-this-reloaded.js', 'jquery' );
+		<div id="extra-fields" style='clear:both;'>
 
-			$type = "";
+		</div>
 
-			if ( preg_match( "/youtube\.com\/watch/i", self::$url ) )
-				$type = 'video';
-			elseif ( preg_match( "/vimeo\.com\/[0-9]+/i", self::$url ) )
-				$type = 'video';
-			elseif ( preg_match( "/flickr\.com/i", self::$url ) )
-				$type = 'photo';
-
-			$data = array(
-				'pressThisUrl' => admin_url( 'post-new.php' ),
-				'content' => self::$content,
-				'url' => self::$url,
-				'urlEncoded' => urlencode( self::$url ),
-				'type' => $type
-			);
-
-			wp_localize_script( 'press-this-reloaded', 'PTReloaded', $data );
-		}
-
-		function shortcut_link( $link ) {
-			$link = str_replace( 'press-this.php', 'post-new.php', $link );
-			$link = str_replace( 'width=720', 'width=810', $link );
-
-			return $link;
-		}
-
-		function redirect( $location ) {
-			$referrer = wp_get_referer();
-
-			if ( false !== strpos( $referrer, '?u=' ) || false !== strpos( $referrer, '&u=' ) )
-				$location = add_query_arg( 'u', 1, $location );
-
-			return $location;
-		}
-
-		function load() {
-			$title = isset( $_GET[ 't' ] ) ? trim( strip_tags( html_entity_decode( stripslashes( $_GET[ 't' ] ), ENT_QUOTES ) ) ) : '';
-
-			self::$url = isset( $_GET[ 'u' ] ) ? esc_url( $_GET[ 'u' ] ) : '';
-			self::$url = wp_kses( urldecode( self::$url ), null );
-
-			$selection = '';
-			if ( !empty( $_GET[ 's' ] ) ) {
-				$selection = str_replace( '&apos;', "'", stripslashes( $_GET[ 's' ] ) );
-				$selection = trim( htmlspecialchars( html_entity_decode( $selection, ENT_QUOTES ) ) );
-			}
-
-			self::$content = '';
-			if ( !empty( $selection ) ) {
-				self::$content = "<blockquote>$selection</blockquote>\n\n";
-				self::$content .= __( 'via ' ) . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( self::$url ), esc_html( $title ) );
-			} else {
-				self::$content = self::$url;
-			}
-
-			self::$title = $title;
-
-			add_action( 'admin_print_styles', array( __CLASS__, 'style' ) );
-
-			add_filter( 'default_title', array( __CLASS__, 'default_title' ) );
-			add_filter( 'default_content', array( __CLASS__, 'default_content' ) );
-
-			add_filter( 'show_admin_bar', '__return_false' );
-		}
-
-		function default_title() {
-			return self::$title;
-		}
-
-		function default_content() {
-			return self::$content;
-		}
-
-		function style() {
-			?>
-			<style type="text/css">
-				/* hide the header */
-				#wphead, #screen-meta, #icon-edit, h2 {display: none !important}
-
-				/* hide the menu */
-				#wpbody {margin-left:7px !important}
-
-				/* hide the footer */
-				#footer {display: none !important}
-				#wpcontent {padding-bottom: 0 !important}
-				#normal-sortables {margin-bottom: -20px !important}
-			</style>
-			<?php
-		}
-
+		<div id="photo-add-url-div" style="display:none;">
+			<table><tr>
+					<td><label for="this_photo"><?php _e( 'URL' ) ?></label></td>
+					<td><input type="text" id="this_photo" name="this_photo" class="tb_this_photo text" onkeypress="if (event.keyCode == 13)
+				image_selector(this);" /></td>
+				</tr><tr>
+					<td><label for="this_photo_description"><?php _e( 'Description' ) ?></label></td>
+					<td><input type="text" id="this_photo_description" name="photo_description" class="tb_this_photo_description text" onkeypress="if (event.keyCode == 13)
+				image_selector(this);" value="<?php echo esc_attr( $title ); ?>"/></td>
+				</tr><tr>
+					<td><input type="button" class="button" onclick="image_selector(this)" value="<?php esc_attr_e( 'Insert Image' ); ?>" /></td>
+				</tr></table>
+		</div>
+		<?php
 	}
 
-	Press_This_Reloaded::init();
+	function add_scripts() {
+
+		wp_enqueue_script( 'press-this-reloaded', plugin_dir_url( __FILE__ ) . '/press-this-reloaded.js', 'jquery' );
+
+		$type = "";
+
+		if ( preg_match( "/youtube\.com\/watch/i", self::$url ) )
+			$type = 'video';
+		elseif ( preg_match( "/vimeo\.com\/[0-9]+/i", self::$url ) )
+			$type = 'video';
+		elseif ( preg_match( "/flickr\.com/i", self::$url ) )
+			$type = 'photo';
+
+		$data = array(
+			'pressThisUrl' => admin_url( 'post-new.php' ),
+			'content' => self::$content,
+			'url' => self::$url,
+			'urlEncoded' => urlencode( self::$url ),
+			'type' => $type
+		);
+
+		wp_localize_script( 'press-this-reloaded', 'PTReloaded', $data );
+	}
+
+	function shortcut_link( $link ) {
+		$link = str_replace( 'press-this.php', 'post-new.php', $link );
+		$link = str_replace( 'width=720', 'width=810', $link );
+
+		return $link;
+	}
+
+	function redirect( $location ) {
+		$referrer = wp_get_referer();
+
+		if ( false !== strpos( $referrer, '?u=' ) || false !== strpos( $referrer, '&u=' ) )
+			$location = add_query_arg( 'u', 1, $location );
+
+		return $location;
+	}
+
+	function load() {
+		$title = isset( $_GET[ 't' ] ) ? trim( strip_tags( html_entity_decode( stripslashes( $_GET[ 't' ] ), ENT_QUOTES ) ) ) : '';
+
+		self::$url = isset( $_GET[ 'u' ] ) ? esc_url( $_GET[ 'u' ] ) : '';
+		self::$url = wp_kses( urldecode( self::$url ), null );
+
+		$selection = '';
+		if ( !empty( $_GET[ 's' ] ) ) {
+			$selection = str_replace( '&apos;', "'", stripslashes( $_GET[ 's' ] ) );
+			$selection = trim( htmlspecialchars( html_entity_decode( $selection, ENT_QUOTES ) ) );
+		}
+
+		self::$content = '';
+		if ( !empty( $selection ) ) {
+			self::$content = "<blockquote>$selection</blockquote>\n\n";
+			self::$content .= __( 'via ' ) . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( self::$url ), esc_html( $title ) );
+		} else {
+			self::$content = self::$url;
+		}
+
+		self::$title = $title;
+
+		add_action( 'admin_print_styles', array( __CLASS__, 'style' ) );
+
+		add_filter( 'default_title', array( __CLASS__, 'default_title' ) );
+		add_filter( 'default_content', array( __CLASS__, 'default_content' ) );
+
+		add_filter( 'show_admin_bar', '__return_false' );
+	}
+
+	function default_title() {
+		return self::$title;
+	}
+
+	function default_content() {
+		return self::$content;
+	}
+
+	function style() {
+		?>
+		<style type="text/css">
+			/* hide the header */
+			#wphead, #screen-meta, #icon-edit, h2 {display: none !important}
+
+			/* hide the menu */
+			#wpbody {margin-left:7px !important}
+
+			/* hide the footer */
+			#footer {display: none !important}
+			#wpcontent {padding-bottom: 0 !important}
+			#normal-sortables {margin-bottom: -20px !important}
+		</style>
+		<?php
+	}
+
+}
+
+Press_This_Reloaded::init();
 
 
 

@@ -1,5 +1,5 @@
 === Press This Reloaded ===
-Contributors: scribu
+Contributors: scribu, mustela
 Tags: bookmarklet, press-this, pressthis
 Requires at least: 3.0
 Tested up to: 3.2
