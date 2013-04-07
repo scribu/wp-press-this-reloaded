@@ -1,9 +1,9 @@
 === Press This Reloaded ===
 Contributors: scribu, mustela
 Tags: bookmarklet, press-this, pressthis
-Requires at least: 3.0
-Tested up to: 3.2
-Stable tag: trunk
+Requires at least: 3.4
+Tested up to: 3.5
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,9 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 1. The UI
 
 == Changelog ==
+
+= 1.1 =
+* easily insert images/videos from page, like in original PressThis
 
 = 1.0.3 =
 * hide admin bar in popup window

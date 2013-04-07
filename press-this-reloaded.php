@@ -1,11 +1,10 @@
 <?php
 /*
   Plugin Name: Press This Reloaded
-  Version: 1.0.3
+  Version: 1.1
   Description: Press This, using the regular Add New Post screen
-  Author: scribu,mustela
-  Author URI: http://scribu.net
-  Plugin URI: http://scribu.net/wordpress/press-this-reloaded
+  Author: scribu, mustela
+  Plugin URI: http://wordpress.org/extend/plugins/press-this-reloaded/
  */
 
 class Press_This_Reloaded {
@@ -31,15 +30,15 @@ class Press_This_Reloaded {
 
 			//remove_action( 'media_buttons', 'media_buttons',1 );
 			add_action( 'media_buttons', array( __CLASS__, 'press_this_media_buttons' ), 11 );
-			
+
 		}
 		elseif ( isset($_REQUEST[ 'ajax' ]) ) { // this is for video only
 			add_action( 'load-post-new.php', array( __CLASS__, 'manageAjaxRequest' ) );
 		}
-		
+
 	}
-	
-				
+
+
 	public static function manageAjaxRequest() {
 
 		$selection = '';
@@ -234,7 +233,7 @@ class Press_This_Reloaded {
 					function image_selector(el) {
 					var desc, src
 
-					
+
 					desc = jQuery('#tb_this_photo_description').val() || '';
 					src = jQuery('#tb_this_photo').val() || ''
 
@@ -245,15 +244,15 @@ class Press_This_Reloaded {
 					hideToolbar(false);
 					return false;
 					}
-					
 
-					
-					
+
+
+
 					jQuery('#extra-fields').html('<div class="postbox"><h2><?php _e( 'Add Photos', self::plugin_domain ); ?> <small id="photo_directions">(<?php _e( "click images to select", self::plugin_domain ) ?>)</small></h2><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php _e( 'Cancel', self::plugin_domain ); ?></a><a href="#" class="refresh button"><?php _e( 'Refresh', self::plugin_domain ); ?></a></p></div>');
-					
-					
+
+
 					//var display = hasImages?'':' style="display:none;"';
-						
+
 						jQuery('#img_container').html(strtoappend);
 						<?php
 						break;
@@ -261,15 +260,15 @@ class Press_This_Reloaded {
 				die();
 			}
 		}
-		
-	
+
+
 
 	function press_this_media_buttons() {
-		
+
 		?>
 		<?php _e( 'Add media from page:', self::plugin_domain ); ?>
-		
-		<?php 
+
+		<?php
 		if ( current_user_can( 'upload_files' ) ) {
 			?>
 			<a id="photo_button" title="<?php esc_attr_e( 'Insert an Image', self::plugin_domain ); ?>" href="#">
@@ -328,9 +327,9 @@ class Press_This_Reloaded {
 	}
 
 	function load() {
-		
-		
-		
+
+
+
 		$title = isset( $_GET[ 't' ] ) ? trim( strip_tags( html_entity_decode( stripslashes( $_GET[ 't' ] ), ENT_QUOTES ) ) ) : '';
 
 		self::$url = isset( $_GET[ 'u' ] ) ? esc_url( $_GET[ 'u' ] ) : '';
@@ -358,7 +357,7 @@ class Press_This_Reloaded {
 		add_filter( 'default_content', array( __CLASS__, 'default_content' ) );
 
 		add_filter( 'show_admin_bar', '__return_false' );
-		
+
 		self::manageAjaxRequest();
 	}
 
@@ -393,4 +392,4 @@ Press_This_Reloaded::init();
 
 
 
-	
+
