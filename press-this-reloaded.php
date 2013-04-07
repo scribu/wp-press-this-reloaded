@@ -265,7 +265,7 @@ class Press_This_Reloaded {
 	function press_this_media_buttons() {
 		
 		?>
-		<?php _e( 'Add:' ); ?>
+		<?php _e( 'Add media from page:' ); ?>
 		
 		<?php 
 		if ( current_user_can( 'upload_files' ) ) {
