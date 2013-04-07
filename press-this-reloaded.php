@@ -33,7 +33,10 @@ class Press_This_Reloaded {
 			add_action( 'media_buttons', array( __CLASS__, 'press_this_media_buttons' ), 11 );
 			
 		}
-		self::manageAjaxRequest();
+		elseif ( isset($_REQUEST[ 'ajax' ]) ) { // this is for video only
+			add_action( 'load-post-new.php', array( __CLASS__, 'manageAjaxRequest' ) );
+		}
+		
 	}
 	
 				
@@ -343,6 +346,9 @@ class Press_This_Reloaded {
 	}
 
 	function load() {
+		
+		
+		
 		$title = isset( $_GET[ 't' ] ) ? trim( strip_tags( html_entity_decode( stripslashes( $_GET[ 't' ] ), ENT_QUOTES ) ) ) : '';
 
 		self::$url = isset( $_GET[ 'u' ] ) ? esc_url( $_GET[ 'u' ] ) : '';
@@ -370,6 +376,8 @@ class Press_This_Reloaded {
 		add_filter( 'default_content', array( __CLASS__, 'default_content' ) );
 
 		add_filter( 'show_admin_bar', '__return_false' );
+		
+		self::manageAjaxRequest();
 	}
 
 	function default_title() {
