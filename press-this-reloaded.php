@@ -35,7 +35,18 @@ class Press_This_Reloaded {
 		self::manageAjaxRequest();
 	}
 
-	function manageAjaxRequest() {
+	public static function manageAjaxRequest() {
+
+		$selection = '';
+		if ( !empty($_GET['s']) ) {
+			$selection = str_replace('&apos;', "'", stripslashes($_GET['s']));
+			$selection = trim( htmlspecialchars( html_entity_decode($selection, ENT_QUOTES) ) );
+		}
+
+		if ( ! empty($selection) ) {
+			$selection = preg_replace('/(\r?\n|\r)/', '</p><p>', $selection);
+			$selection = '<p>' . str_replace('<p></p>', '', $selection) . '</p>';
+		}
 
 		$url = isset( $_GET[ 'u' ] ) ? esc_url( $_GET[ 'u' ] ) : '';
 		$image = isset( $_GET[ 'i' ] ) ? $_GET[ 'i' ] : '';
@@ -51,10 +62,12 @@ class Press_This_Reloaded {
 							append_editor(jQuery('#embed-code').val());
 							jQuery('#extra-fields').hide();
 							jQuery('#extra-fields').html('');
+							hideToolbar(false);
 						});
 						jQuery('.close').click(function() {
 							jQuery('#extra-fields').hide();
 							jQuery('#extra-fields').html('');
+							hideToolbar(false);
 						});
 						/* ]]> */
 					</script>
@@ -84,7 +97,7 @@ class Press_This_Reloaded {
 					<div class="titlediv">
 						<div class="titlewrap">
 							<input id="tb_this_photo_description" name="photo_description" class="tb_this_photo_description tbtitle text" onkeypress="if (event.keyCode == 13)
-								image_selector(this);" value="<?php echo esc_attr( $title ); ?>"/>
+								image_selector(this);" value="<?php echo esc_attr( self::$title ); ?>"/>
 						</div>
 					</div>
 
@@ -145,7 +158,7 @@ class Press_This_Reloaded {
 					?>
 					// gather images and load some default JS
 					var last = null
-					var img, img_tag, aspect, w, h, skip, i, strtoappend = "";
+					var img, img_tag, aspect, w, h, skip, i, strtoappend = "",hasImages = true;
 					if(photostorage == false) {
 					var my_src = eval(
 					jQuery.ajax({
@@ -169,6 +182,7 @@ class Press_This_Reloaded {
 					}).responseText
 					);
 					if(my_src.length == 0) {
+					hasImages = false;
 					strtoappend = '<?php _e( 'Unable to retrieve images or no images on page.' ); ?>';
 					}
 					}
@@ -228,10 +242,18 @@ class Press_This_Reloaded {
 					pick(src, desc);
 					jQuery('#extra-fields').hide();
 					jQuery('#extra-fields').html('');
+					hideToolbar(false);
 					return false;
 					}
+					
 
+					
+					
 					jQuery('#extra-fields').html('<div class="postbox"><h2><?php _e( 'Add Photos' ); ?> <small id="photo_directions">(<?php _e( "click images to select" ) ?>)</small></h2><ul class="actions"><li><a href="#" id="photo-add-url" class="button button-small"><?php _e( "Add from URL" ) ?> +</a></li></ul><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php _e( 'Cancel' ); ?></a><a href="#" class="refresh button"><?php _e( 'Refresh' ); ?></a></p></div>');
+					
+					
+					//var display = hasImages?'':' style="display:none;"';
+						
 						jQuery('#img_container').html(strtoappend);
 						<?php
 						break;
@@ -241,10 +263,11 @@ class Press_This_Reloaded {
 		}
 
 	function press_this_media_buttons() {
-
-
-		_e( 'Add:' );
-
+		
+		?>
+		<?php _e( 'Add:' ); ?>
+		
+		<?php 
 		if ( current_user_can( 'upload_files' ) ) {
 			?>
 			<a id="photo_button" title="<?php esc_attr_e( 'Insert an Image' ); ?>" href="#">
@@ -253,10 +276,9 @@ class Press_This_Reloaded {
 		}
 		?>
 		<a id="video_button" title="<?php esc_attr_e( 'Embed a Video' ); ?>" href="#"><img alt="<?php esc_attr_e( 'Embed a Video' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-video.gif?ver=20100531' ) ); ?>"/></a>
-
 		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading...' ); ?></span></div>
 
-		<div id="extra-fields" style='clear:both;'>
+		<div id="extra-fields" style='clear:both; display:none'>
 
 		</div>
 
@@ -268,7 +290,7 @@ class Press_This_Reloaded {
 				</tr><tr>
 					<td><label for="this_photo_description"><?php _e( 'Description' ) ?></label></td>
 					<td><input type="text" id="this_photo_description" name="photo_description" class="tb_this_photo_description text" onkeypress="if (event.keyCode == 13)
-				image_selector(this);" value="<?php echo esc_attr( $title ); ?>"/></td>
+				image_selector(this);" value="<?php echo esc_attr( self::$title ); ?>"/></td>
 				</tr><tr>
 					<td><input type="button" class="button" onclick="image_selector(this)" value="<?php esc_attr_e( 'Insert Image' ); ?>" /></td>
 				</tr></table>
