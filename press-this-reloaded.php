@@ -232,16 +232,11 @@ class Press_This_Reloaded {
 					}
 
 					function image_selector(el) {
-					var desc, src, parent = jQuery(el).closest('#photo-add-url-div');
+					var desc, src
 
-
-					if ( parent.length ) {
-					desc = parent.find('input.tb_this_photo_description').val() || '';
-					src = parent.find('input.tb_this_photo').val() || ''
-					} else {
+					
 					desc = jQuery('#tb_this_photo_description').val() || '';
 					src = jQuery('#tb_this_photo').val() || ''
-					}
 
 					tb_remove();
 					pick(src, desc);
@@ -254,7 +249,7 @@ class Press_This_Reloaded {
 
 					
 					
-					jQuery('#extra-fields').html('<div class="postbox"><h2><?php _e( 'Add Photos', self::plugin_domain ); ?> <small id="photo_directions">(<?php _e( "click images to select", self::plugin_domain ) ?>)</small></h2><ul class="actions"><li><a href="#" id="photo-add-url" class="button button-small"><?php _e( "Add from URL", self::plugin_domain ) ?> +</a></li></ul><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php _e( 'Cancel', self::plugin_domain ); ?></a><a href="#" class="refresh button"><?php _e( 'Refresh', self::plugin_domain ); ?></a></p></div>');
+					jQuery('#extra-fields').html('<div class="postbox"><h2><?php _e( 'Add Photos', self::plugin_domain ); ?> <small id="photo_directions">(<?php _e( "click images to select", self::plugin_domain ) ?>)</small></h2><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php _e( 'Cancel', self::plugin_domain ); ?></a><a href="#" class="refresh button"><?php _e( 'Refresh', self::plugin_domain ); ?></a></p></div>');
 					
 					
 					//var display = hasImages?'':' style="display:none;"';
@@ -289,19 +284,6 @@ class Press_This_Reloaded {
 
 		</div>
 
-		<div id="photo-add-url-div" style="display:none;">
-			<table><tr>
-					<td><label for="this_photo"><?php _e( 'URL', self::plugin_domain ) ?></label></td>
-					<td><input type="text" id="this_photo" name="this_photo" class="tb_this_photo text" onkeypress="if (event.keyCode == 13)
-				image_selector(this);" /></td>
-				</tr><tr>
-					<td><label for="this_photo_description"><?php _e( 'Description', self::plugin_domain ) ?></label></td>
-					<td><input type="text" id="this_photo_description" name="photo_description" class="tb_this_photo_description text" onkeypress="if (event.keyCode == 13)
-				image_selector(this);" value="<?php echo esc_attr( self::$title ); ?>"/></td>
-				</tr><tr>
-					<td><input type="button" class="button" onclick="image_selector(this)" value="<?php esc_attr_e( 'Insert Image', self::plugin_domain ); ?>" /></td>
-				</tr></table>
-		</div>
 		<?php
 	}
 

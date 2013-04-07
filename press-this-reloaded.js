@@ -56,11 +56,7 @@
 						photostorage = false;
 						show('photo');
 					});
-					jQuery('#photo-add-url').click(function(){
-						
-						var form = jQuery('#photo-add-url-div').clone();
-						jQuery('#img_container').empty().append( form.show() );
-					});
+					
 					jQuery('#waiting').hide();
 					
 					if ( hasImages )
