@@ -36,21 +36,7 @@ class Press_This_Reloaded {
 		self::manageAjaxRequest();
 	}
 	
-	/** Helper functions **/
-	public static function _e( $text ){
-		
-		_e($text,self::plugin_domain);
-	}
-	
-	public static function esc_attr_e( $text ){
-		esc_attr_e( $text, self::plugin_domain);
-	}
-	
-	public static function esc_html_e( $text ){
-		esc_html_e( $text, self::plugin_domain);
-	}
-	/** ---- **/
-
+				
 	public static function manageAjaxRequest() {
 
 		$selection = '';
@@ -88,10 +74,10 @@ class Press_This_Reloaded {
 						/* ]]> */
 					</script>
 					<div class="postbox">
-						<h2><label for="embed-code"><?php self::_e( 'Embed Code' ) ?></label></h2>
+						<h2><label for="embed-code"><?php _e( 'Embed Code', self::plugin_domain) ?></label></h2>
 						<div class="inside">
 							<textarea name="embed-code" id="embed-code" rows="8" cols="40"><?php echo esc_textarea( $selection ); ?></textarea>
-							<p id="options"><a href="#" class="select button"><?php self::_e( 'Insert Video' ); ?></a> <a href="#" class="close button"><?php self::_e( 'Cancel' ); ?></a></p>
+							<p id="options"><a href="#" class="select button"><?php _e( 'Insert Video', self::plugin_domain ); ?></a> <a href="#" class="close button"><?php _e( 'Cancel', self::plugin_domain ); ?></a></p>
 						</div>
 					</div>
 					<?php
@@ -109,7 +95,7 @@ class Press_This_Reloaded {
 						});
 						/* ]]> */
 					</script>
-					<h3 class="tb"><label for="tb_this_photo_description"><?php self::_e( 'Description' ) ?></label></h3>
+					<h3 class="tb"><label for="tb_this_photo_description"><?php _e( 'Description', self::plugin_domain ) ?></label></h3>
 					<div class="titlediv">
 						<div class="titlewrap">
 							<input id="tb_this_photo_description" name="photo_description" class="tb_this_photo_description tbtitle text" onkeypress="if (event.keyCode == 13)
@@ -120,11 +106,11 @@ class Press_This_Reloaded {
 					<p class="centered">
 						<input type="hidden" name="this_photo" value="<?php echo esc_attr( $image ); ?>" id="tb_this_photo" class="tb_this_photo" />
 						<a href="#" class="select">
-							<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( __( 'Click to insert.' ) ); ?>" title="<?php echo esc_attr( __( 'Click to insert.' ) ); ?>" />
+							<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( __( 'Click to insert.', self::plugin_domain ) ); ?>" title="<?php echo esc_attr( __( 'Click to insert.', self::plugin_domain ) ); ?>" />
 						</a>
 					</p>
 
-					<p id="options"><a href="#" class="select button"><?php self::_e( 'Insert Image' ); ?></a> <a href="#" class="cancel button"><?php self::_e( 'Cancel' ); ?></a></p>
+					<p id="options"><a href="#" class="select button"><?php _e( 'Insert Image', self::plugin_domain ); ?></a> <a href="#" class="cancel button"><?php _e( 'Cancel', self::plugin_domain ); ?></a></p>
 					<?php
 					break;
 				case 'photo_images':
@@ -199,7 +185,7 @@ class Press_This_Reloaded {
 					);
 					if(my_src.length == 0) {
 					hasImages = false;
-					strtoappend = '<?php self::_e( 'Unable to retrieve images or no images on page.' ); ?>';
+					strtoappend = '<?php _e( 'Unable to retrieve images or no images on page.', self::plugin_domain ); ?>';
 					}
 					}
 					}
@@ -265,7 +251,7 @@ class Press_This_Reloaded {
 
 					
 					
-					jQuery('#extra-fields').html('<div class="postbox"><h2><?php self::_e( 'Add Photos' ); ?> <small id="photo_directions">(<?php self::_e( "click images to select" ) ?>)</small></h2><ul class="actions"><li><a href="#" id="photo-add-url" class="button button-small"><?php self::_e( "Add from URL" ) ?> +</a></li></ul><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php self::_e( 'Cancel' ); ?></a><a href="#" class="refresh button"><?php self::_e( 'Refresh' ); ?></a></p></div>');
+					jQuery('#extra-fields').html('<div class="postbox"><h2><?php _e( 'Add Photos', self::plugin_domain ); ?> <small id="photo_directions">(<?php _e( "click images to select", self::plugin_domain ) ?>)</small></h2><ul class="actions"><li><a href="#" id="photo-add-url" class="button button-small"><?php _e( "Add from URL", self::plugin_domain ) ?> +</a></li></ul><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php _e( 'Cancel', self::plugin_domain ); ?></a><a href="#" class="refresh button"><?php _e( 'Refresh', self::plugin_domain ); ?></a></p></div>');
 					
 					
 					//var display = hasImages?'':' style="display:none;"';
@@ -283,18 +269,18 @@ class Press_This_Reloaded {
 	function press_this_media_buttons() {
 		
 		?>
-		<?php self::_e( 'Add media from page:' ); ?>
+		<?php _e( 'Add media from page:', self::plugin_domain ); ?>
 		
 		<?php 
 		if ( current_user_can( 'upload_files' ) ) {
 			?>
-			<a id="photo_button" title="<?php self::esc_attr_e( 'Insert an Image' ); ?>" href="#">
-				<img alt="<?php self::esc_attr_e( 'Insert an Image' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-image.gif?ver=20100531' ) ); ?>"/></a>
+			<a id="photo_button" title="<?php esc_attr_e( 'Insert an Image', self::plugin_domain ); ?>" href="#">
+				<img alt="<?php esc_attr_e( 'Insert an Image', self::plugin_domain ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-image.gif?ver=20100531' ) ); ?>"/></a>
 			<?php
 		}
 		?>
-		<a id="video_button" title="<?php self::esc_attr_e( 'Embed a Video' ); ?>" href="#"><img alt="<?php self::esc_attr_e( 'Embed a Video' ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-video.gif?ver=20100531' ) ); ?>"/></a>
-		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php self::esc_html_e( 'Loading...' ); ?></span></div>
+		<a id="video_button" title="<?php esc_attr_e( 'Embed a Video', self::plugin_domain ); ?>" href="#"><img alt="<?php esc_attr_e( 'Embed a Video', self::plugin_domain ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-video.gif?ver=20100531' ) ); ?>"/></a>
+		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading...', self::plugin_domain ); ?></span></div>
 
 		<div id="extra-fields" style='clear:both; display:none'>
 
@@ -302,15 +288,15 @@ class Press_This_Reloaded {
 
 		<div id="photo-add-url-div" style="display:none;">
 			<table><tr>
-					<td><label for="this_photo"><?php self::_e( 'URL' ) ?></label></td>
+					<td><label for="this_photo"><?php _e( 'URL', self::plugin_domain ) ?></label></td>
 					<td><input type="text" id="this_photo" name="this_photo" class="tb_this_photo text" onkeypress="if (event.keyCode == 13)
 				image_selector(this);" /></td>
 				</tr><tr>
-					<td><label for="this_photo_description"><?php self::_e( 'Description' ) ?></label></td>
+					<td><label for="this_photo_description"><?php _e( 'Description', self::plugin_domain ) ?></label></td>
 					<td><input type="text" id="this_photo_description" name="photo_description" class="tb_this_photo_description text" onkeypress="if (event.keyCode == 13)
 				image_selector(this);" value="<?php echo esc_attr( self::$title ); ?>"/></td>
 				</tr><tr>
-					<td><input type="button" class="button" onclick="image_selector(this)" value="<?php self::esc_attr_e( 'Insert Image' ); ?>" /></td>
+					<td><input type="button" class="button" onclick="image_selector(this)" value="<?php esc_attr_e( 'Insert Image', self::plugin_domain ); ?>" /></td>
 				</tr></table>
 		</div>
 		<?php
@@ -371,7 +357,7 @@ class Press_This_Reloaded {
 		self::$content = '';
 		if ( !empty( $selection ) ) {
 			self::$content = "<blockquote>$selection</blockquote>\n\n";
-			self::$content .= __( 'via ' ) . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( self::$url ), esc_html( $title ) );
+			self::$content .= __( 'via ', self::plugin_domain ) . sprintf( "<a href='%s'>%s</a>.</p>", esc_url( self::$url ), esc_html( $title ) );
 		} else {
 			self::$content = self::$url;
 		}
