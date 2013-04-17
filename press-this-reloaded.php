@@ -38,7 +38,6 @@ class Press_This_Reloaded {
 
 	}
 
-
 	public static function manageAjaxRequest() {
 
 		$selection = '';
@@ -66,12 +65,10 @@ class Press_This_Reloaded {
 							append_editor(jQuery('#embed-code').val());
 							jQuery('#extra-fields').hide();
 							jQuery('#extra-fields').html('');
-							hideToolbar(false);
 						});
 						jQuery('.close').click(function() {
 							jQuery('#extra-fields').hide();
 							jQuery('#extra-fields').html('');
-							hideToolbar(false);
 						});
 						/* ]]> */
 					</script>
@@ -101,7 +98,7 @@ class Press_This_Reloaded {
 					<div class="titlediv">
 						<div class="titlewrap">
 							<input id="tb_this_photo_description" name="photo_description" class="tb_this_photo_description tbtitle text" onkeypress="if (event.keyCode == 13)
-								image_selector(this);" value="<?php echo esc_attr( self::$title ); ?>"/>
+								image_selector(this);" value="<?php echo esc_attr( $title ); ?>"/>
 						</div>
 					</div>
 
@@ -162,7 +159,7 @@ class Press_This_Reloaded {
 					?>
 					// gather images and load some default JS
 					var last = null
-					var img, img_tag, aspect, w, h, skip, i, strtoappend = "",hasImages = true;
+					var img, img_tag, aspect, w, h, skip, i, strtoappend = "";
 					if(photostorage == false) {
 					var my_src = eval(
 					jQuery.ajax({
@@ -241,12 +238,8 @@ class Press_This_Reloaded {
 					pick(src, desc);
 					jQuery('#extra-fields').hide();
 					jQuery('#extra-fields').html('');
-					hideToolbar(false);
 					return false;
 					}
-
-
-
 
 					jQuery('#extra-fields').html('<div class="postbox"><h2><?php _e( 'Add Photos', self::plugin_domain ); ?> <small id="photo_directions">(<?php _e( "click images to select", self::plugin_domain ) ?>)</small></h2><div class="inside"><div class="titlewrap"><div id="img_container"></div></div><p id="options"><a href="#" class="close button"><?php _e( 'Cancel', self::plugin_domain ); ?></a><a href="#" class="refresh button"><?php _e( 'Refresh', self::plugin_domain ); ?></a></p></div>');
 
@@ -279,7 +272,7 @@ class Press_This_Reloaded {
 		<a id="video_button" title="<?php esc_attr_e( 'Embed a Video', self::plugin_domain ); ?>" href="#"><img alt="<?php esc_attr_e( 'Embed a Video', self::plugin_domain ); ?>" src="<?php echo esc_url( admin_url( 'images/media-button-video.gif?ver=20100531' ) ); ?>"/></a>
 		<div id="waiting" style="display: none"><span class="spinner"></span> <span><?php esc_html_e( 'Loading...', self::plugin_domain ); ?></span></div>
 
-		<div id="extra-fields" style='clear:both; display:none'>
+		<div id="extra-fields" style='clear:both;'>
 
 		</div>
 

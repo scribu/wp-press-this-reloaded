@@ -31,17 +31,13 @@
 
 	function show(tab_name) {
 		jQuery('#extra-fields').html('');
-		hideToolbar( true );
-		
 		switch(tab_name) {
 			case 'video' :
 				
 				jQuery('#extra-fields').load(PTReloaded.pressThisUrl, { ajax: 'video', s: PTReloaded.content}, function() {
 					jQuery('#embed-code').prepend(PTReloaded.content);
 				});
-				jQuery('#extra-fields').fadeIn();
-				
-				
+				jQuery('#extra-fields').show();
 				return false;
 				break;
 			case 'photo' :
@@ -50,7 +46,6 @@
 					jQuery('.close').click(function() {
 						jQuery('#extra-fields').hide();
 						jQuery('#extra-fields').html('');
-						hideToolbar( false );
 					});
 					jQuery('.refresh').click(function() {
 						photostorage = false;
@@ -58,15 +53,7 @@
 					});
 					
 					jQuery('#waiting').hide();
-					
-					if ( hasImages )
-						jQuery('#extra-fields').fadeIn();
-					else if ( firstTime ){
-						hideToolbar( false );
-						firstTime = false;
-					}
-						
-					//jQuery('#extra-fields').show();
+					jQuery('#extra-fields').show();
 				}
 
 				jQuery('#waiting').show();
@@ -91,31 +78,19 @@
 				break;
 		}
 	}
-	function hideToolbar( value ){
-		if ( value )
-			jQuery('#wp-content-media-buttons').fadeOut('fast');
-		else
-			jQuery('#wp-content-media-buttons').fadeIn('fast');
-	}
 	jQuery(document).ready(function($) {
-		
-		firstTime = true;
 		
 		//$('#extra-fields').remove();
 		$('#extra-fields').prependTo('#wp-content-wrap');
-		$('#waiting').prependTo('#wp-content-wrap');
 		
 		//resize screen
 		//window.resizeTo(740,580);
 		// set button actions
-		$('#photo_button').click(function() {  
-			show('photo');
-			jQuery('#extra-fields').fadeIn();
-			return false; });
-		$('#video_button').click(function() {  show('video'); return false; });
+		$('#photo_button').click(function() { show('photo'); return false; });
+		$('#video_button').click(function() { show('video'); return false; });
 		// auto select
 		 
-		//show(PTReloaded.type);
+		show(PTReloaded.type);
 		
 		jQuery('#title').unbind();
 		jQuery('#publish, #save').click(function() { jQuery('.press-this #publishing-actions .spinner').css('display', 'inline-block'); });
@@ -123,15 +98,4 @@
 		$('#tagsdiv-post_tag, #categorydiv').children('h3, .handlediv').click(function(){
 			$(this).siblings('.inside').toggle();
 		});
-		
-		
-		
-		//By default lets read the images
-		show('photo');
-		
-		
 	});
-
-
-
-
