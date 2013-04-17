@@ -36,6 +36,9 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 
 == Changelog ==
 
+= 1.1.1 =
+* don't automatically load images from parent page
+
 = 1.1 =
 * easily insert images/videos from page, like in original PressThis
 

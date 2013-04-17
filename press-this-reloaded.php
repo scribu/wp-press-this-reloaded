@@ -1,7 +1,7 @@
 <?php
 /*
   Plugin Name: Press This Reloaded
-  Version: 1.1
+  Version: 1.1.1-alpha
   Description: Press This, using the regular Add New Post screen
   Author: scribu, mustela
   Plugin URI: http://wordpress.org/extend/plugins/press-this-reloaded/
@@ -382,7 +382,4 @@ class Press_This_Reloaded {
 }
 
 Press_This_Reloaded::init();
-
-
-
 
