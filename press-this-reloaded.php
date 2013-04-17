@@ -7,6 +7,8 @@
   Plugin URI: http://wordpress.org/extend/plugins/press-this-reloaded/
  */
 
+define( 'PTR_VERSION', '1.1.1-alpha' );
+
 class Press_This_Reloaded {
 
 	private static $title;
@@ -281,7 +283,7 @@ class Press_This_Reloaded {
 
 	function add_scripts() {
 
-		wp_enqueue_script( 'press-this-reloaded', plugin_dir_url( __FILE__ ) . '/press-this-reloaded.js', 'jquery' );
+		wp_enqueue_script( 'press-this-reloaded', plugin_dir_url( __FILE__ ) . '/press-this-reloaded.js', 'jquery', PTR_VERSION );
 
 		$type = "";
 
